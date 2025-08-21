@@ -1,9 +1,30 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:three_min_for_god/screens/language_selection_screen.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(const Duration(seconds: 6), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const LanguageSelectionScreen(),
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +39,18 @@ class SplashScreen extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             // Overlay container with text
-            Container(
-              height: 333,
-              width: 333,
-              margin: const EdgeInsets.symmetric(horizontal: 21),
-              decoration: BoxDecoration(
-                color: Color(0x214B8E96),
-                shape: BoxShape.circle,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 102, bottom: 26),
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                height: 333,
+                width: 333,
+                margin: const EdgeInsets.symmetric(horizontal: 21),
+                decoration: BoxDecoration(
+                  color: Color(0x214B8E96),
+                  shape: BoxShape.circle,
+                ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Image.asset(
                       'assets/logos/logo.png',
@@ -45,9 +65,7 @@ class SplashScreen extends StatelessWidget {
                         color: Color(0xff00335D),
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
                         height: 1.0,
-                        letterSpacing: 0,
                       ),
                     ),
                     const SizedBox(height: 42),
@@ -66,6 +84,7 @@ class SplashScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 26),
                   ],
                 ),
               ),
