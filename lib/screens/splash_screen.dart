@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:three_min_for_god/screens/home_screen.dart';
 import 'package:three_min_for_god/screens/language_selection_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,14 +15,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  
   @override
   void initState() {
+
     super.initState();
+     final box = GetStorage();
+    bool isLanguageSelected = box.read('isLanguageSelected') ?? false;
     Timer(const Duration(seconds: 6), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) =>  LanguageSelectionScreen(),
+          builder: (context) => isLanguageSelected ? HomeScreen() : LanguageSelectionScreen(),
         ),
       );
     });

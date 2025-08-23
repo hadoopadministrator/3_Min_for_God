@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:three_min_for_god/controllers/language_controller.dart';
 import 'package:three_min_for_god/screens/home_screen.dart';
@@ -8,9 +9,8 @@ import 'package:three_min_for_god/widgets/language_tile.dart';
 
 class LanguageSelectionScreen extends StatelessWidget {
   LanguageSelectionScreen({super.key});
-  // Inject the controller
-  final LanguageController controller = Get.put(LanguageController());
 
+  final LanguageController controller = Get.find<LanguageController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,6 +117,12 @@ class LanguageSelectionScreen extends StatelessWidget {
                   const SizedBox(height: 33),
                   InkWell(
                     onTap: () {
+                      final box = GetStorage();
+                      box.write('isLanguageSelected', true);
+                      box.write(
+                        'selectedLanguage',
+                        '${controller.locale.value.languageCode}_${controller.locale.value.countryCode}',
+                      );
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => HomeScreen()),
