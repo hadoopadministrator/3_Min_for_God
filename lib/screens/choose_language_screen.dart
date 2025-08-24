@@ -6,8 +6,7 @@ import 'package:three_min_for_god/controllers/language_controller.dart';
 import 'package:three_min_for_god/widgets/menu_card_widget.dart';
 
 class ChooseLanguageScreen extends StatelessWidget {
-   ChooseLanguageScreen({super.key});
-  
+  ChooseLanguageScreen({super.key});
 
   final LanguageController controller = Get.find<LanguageController>();
   @override
@@ -58,7 +57,9 @@ class ChooseLanguageScreen extends StatelessWidget {
                     height: 24,
                     width: 24,
                     fit: BoxFit.none,
-                    color: controller.locale.value.languageCode == "es" ? Colors.white : null,
+                    colorFilter: controller.locale.value.languageCode == "es"
+                        ? const ColorFilter.mode(Colors.white, BlendMode.srcIn)
+                        : null,
                   ),
                   lable: 'Spanish',
                   lableColor: controller.locale.value.languageCode == "es"
@@ -80,7 +81,9 @@ class ChooseLanguageScreen extends StatelessWidget {
                     height: 24,
                     width: 24,
                     fit: BoxFit.none,
-                    color: controller.locale.value.languageCode == "es" ? Color(0xff4B8E96) : null,
+                    colorFilter: controller.locale.value.languageCode == "es"
+                        ? const ColorFilter.mode(Color(0xff4B8E96), BlendMode.srcIn)
+                        : null,
                   ),
                   lable: 'English',
                   lableColor: controller.locale.value.languageCode == "en"

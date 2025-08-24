@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -112,69 +114,64 @@ class _CrosswordsScreenState extends State<CrosswordsScreen> {
   void showHowToPlayDialog() {
     showDialog(
       context: context,
-      builder: (context) => Dialog(
-        backgroundColor: Colors.white,
-        insetPadding: const EdgeInsets.symmetric(horizontal: 24),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: InkWell(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: const Icon(Icons.close_rounded, size: 24),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'HOW TO PLAY',
-                  style: GoogleFonts.poppins(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    height: 1.3,
-                    letterSpacing: -0.02 * 20,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  'Guess the word in 6 tries',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    height: 1.3,
-                    letterSpacing: -0.02 * 20,
-                  ),
-                ),
-                const SizedBox(height: 15),
-                Text(
-                  ' • Each guess must be a valid 5-letter word.',
-                  style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    height: 1.3,
-                    letterSpacing: -0.02 * 20,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      ' • ',
-                      style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        height: 1.3,
-                        letterSpacing: -0.02 * 20,
-                      ),
+      barrierDismissible: false,
+      barrierColor: Color(0x66D9D9D9),   
+      builder: (context) => BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
+        child: Dialog(
+          backgroundColor: Colors.white,
+          alignment: Alignment.center,
+          insetPadding: const EdgeInsets.symmetric(horizontal: 24),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: InkWell(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: const Icon(Icons.close_rounded, size: 24),
                     ),
-                    Expanded(
-                      child: Text(
-                        'The color of the tiles will change to show how\nclose your guess was to the word',
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'HOW TO PLAY',
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      height: 1.3,
+                      letterSpacing: -0.02 * 20,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Guess the word in 6 tries',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      height: 1.3,
+                      letterSpacing: -0.02 * 20,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    ' • Each guess must be a valid 5-letter word.',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      height: 1.3,
+                      letterSpacing: -0.02 * 20,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        ' • ',
                         style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -182,41 +179,52 @@ class _CrosswordsScreenState extends State<CrosswordsScreen> {
                           letterSpacing: -0.02 * 20,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  "Examples",
-                  style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    height: 1.3,
-                    letterSpacing: -0.02 * 20,
+                      Expanded(
+                        child: Text(
+                          'The color of the tiles will change to show how\nclose your guess was to the word',
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            height: 1.3,
+                            letterSpacing: -0.02 * 20,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 10),
-                // Example 1
-                WordRowWidget(
-                  letters: ["W", "O", "R", "D", "Y"],
-                  colors: [Color(0xffE1FCDF), null, null, null, null],
-                  description: "is the word and in the correct spot.",
-                ),
-                const SizedBox(height: 10),
-                // Example 2
-                WordRowWidget(
-                  letters: ["L", "I", "G", "H", "T"],
-                  colors: [null, Color(0xffFFDDC3), null, null, null],
-                  description: "is the word but in the wrong spot.",
-                ),
-                const SizedBox(height: 10),
-                // Example 3
-                WordRowWidget(
-                  letters: ["R", "O", "G", "U", "E"],
-                  colors: [null, null, null, Color(0xffD7D7D7), null],
-                  description: "is not the word in any spot.",
-                ),
-              ],
+                  const SizedBox(height: 16),
+                  Text(
+                    "Examples",
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      height: 1.3,
+                      letterSpacing: -0.02 * 20,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  // Example 1
+                  WordRowWidget(
+                    letters: ["W", "O", "R", "D", "Y"],
+                    colors: [Color(0xffE1FCDF), null, null, null, null],
+                    description: "is the word and in the correct spot.",
+                  ),
+                  const SizedBox(height: 10),
+                  // Example 2
+                  WordRowWidget(
+                    letters: ["L", "I", "G", "H", "T"],
+                    colors: [null, Color(0xffFFDDC3), null, null, null],
+                    description: "is the word but in the wrong spot.",
+                  ),
+                  const SizedBox(height: 10),
+                  // Example 3
+                  WordRowWidget(
+                    letters: ["R", "O", "G", "U", "E"],
+                    colors: [null, null, null, Color(0xffD7D7D7), null],
+                    description: "is not the word in any spot.",
+                  ),
+                ],
+              ),
             ),
           ),
         ),

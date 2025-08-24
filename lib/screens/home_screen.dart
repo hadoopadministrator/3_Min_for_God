@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:three_min_for_god/screens/animonks_screen.dart';
+import 'package:three_min_for_god/screens/devotional_screen.dart';
 import 'package:three_min_for_god/screens/request_prayer_screen.dart';
 import 'package:three_min_for_god/screens/crosswords_screen.dart';
 import 'package:three_min_for_god/screens/settings_screen.dart';
@@ -112,7 +113,14 @@ class MainContainer extends StatelessWidget {
               ContainerWidget(
                 iconPath: 'assets/icons/devotional.svg',
                 iconTitle: 'Devotional',
-                onTap: () {},
+                onTap: () {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DevotionalScreen(),
+                    ),
+                  );
+                },
               ),
               const SizedBox(width: 12),
               ContainerWidget(
