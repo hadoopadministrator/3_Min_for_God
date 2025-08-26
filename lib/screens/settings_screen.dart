@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:three_min_for_god/controllers/language_controller.dart';
 import 'package:three_min_for_god/screens/about_us_screen.dart';
 import 'package:three_min_for_god/screens/choose_language_screen.dart';
+import 'package:three_min_for_god/screens/set_notification_timing_screen.dart';
 import 'package:three_min_for_god/widgets/menu_card_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -144,13 +145,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              MenuCardWidget(
-                widget: SvgPicture.asset(
-                  'assets/icons/notifications.svg',
-                  height: 24,
-                  width: 24,
+              InkWell(
+                onTap: () {
+                   Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SetNotificationTimingScreen(),
+                      ),
+                    );
+                },
+                child: MenuCardWidget(
+                  widget: SvgPicture.asset(
+                    'assets/icons/notifications.svg',
+                    height: 24,
+                    width: 24,
+                  ),
+                  lable: 'Set Notification Timing',
                 ),
-                lable: 'Set Notification Timing',
               ),
               const SizedBox(height: 16),
               InkWell(
