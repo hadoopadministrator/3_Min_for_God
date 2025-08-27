@@ -28,7 +28,7 @@ class ChooseLanguageScreen extends StatelessWidget {
           },
         ),
         title: Text(
-          "Choose your Language",
+          'choose_your_language'.tr,
           style: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -61,7 +61,7 @@ class ChooseLanguageScreen extends StatelessWidget {
                         ? const ColorFilter.mode(Colors.white, BlendMode.srcIn)
                         : null,
                   ),
-                  lable: 'Spanish',
+                  lable: 'spanish'.tr,
                   lableColor: controller.locale.value.languageCode == "es"
                       ? Colors.white
                       : Colors.black,
@@ -82,10 +82,13 @@ class ChooseLanguageScreen extends StatelessWidget {
                     width: 24,
                     fit: BoxFit.none,
                     colorFilter: controller.locale.value.languageCode == "es"
-                        ? const ColorFilter.mode(Color(0xff4B8E96), BlendMode.srcIn)
+                        ? const ColorFilter.mode(
+                            Color(0xff4B8E96),
+                            BlendMode.srcIn,
+                          )
                         : null,
                   ),
-                  lable: 'English',
+                  lable: 'english'.tr,
                   lableColor: controller.locale.value.languageCode == "en"
                       ? Colors.white
                       : Colors.black,

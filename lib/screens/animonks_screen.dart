@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 // import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,7 +25,7 @@ class AnimonksScreen extends StatelessWidget {
           },
         ),
         title: Text(
-          "Animonks",
+          "animonks".tr,
           style: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -69,7 +70,7 @@ class AnimonksScreen extends StatelessWidget {
                     children: [
                       const SizedBox(height: 7),
                       Text(
-                        "Tuesday",
+                        'tuesday'.tr,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
                           fontSize: 12,
@@ -132,7 +133,7 @@ Teleck luvunge heteronasade miment, egogussade. Makrokar belogi, att kask antini
                   // width: 299,
                   alignment: Alignment.center,
                   child: Text(
-                    'Back to Homepage',
+                    'back_to_homepage'.tr,
                     style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 14,

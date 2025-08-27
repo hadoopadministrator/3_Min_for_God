@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:three_min_for_god/screens/home_screen.dart';
@@ -68,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        "3 MIN FOR GOD",
+                        'splash_label'.tr,
                         style: GoogleFonts.dmSerifText(
                           color: Color(0xff00335D),
                           fontSize: 24,

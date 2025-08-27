@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:three_min_for_god/screens/devotional_screen.dart';
 import 'package:three_min_for_god/widgets/menu_card_widget.dart';
@@ -26,7 +27,7 @@ class RequestPrayerScreen extends StatelessWidget {
           },
         ),
         title: Text(
-          "Request Prayer",
+          'request_prayer'.tr,
           style: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -48,7 +49,7 @@ class RequestPrayerScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => DevotionalScreen(
-                        title: 'Health',
+                        title: 'health'.tr,
                         songPath: 'musics/Request_illness.mp3',
                       ),
                     ),
@@ -60,7 +61,7 @@ class RequestPrayerScreen extends StatelessWidget {
                     height: 24,
                     width: 24,
                   ),
-                  lable: 'Health',
+                  lable: 'health'.tr,
                 ),
               ),
               const SizedBox(height: 19),
@@ -70,7 +71,7 @@ class RequestPrayerScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => DevotionalScreen(
-                        title: 'Birthday or Anniversary',
+                        title: 'birthday_or_anniversary'.tr,
                         songPath: 'musics/Request_birthday.mp3',
                       ),
                     ),
@@ -82,7 +83,7 @@ class RequestPrayerScreen extends StatelessWidget {
                     height: 24,
                     width: 24,
                   ),
-                  lable: 'Birthday or Anniversary',
+                  lable: 'birthday_or_anniversary'.tr,
                 ),
               ),
               const SizedBox(height: 19),
@@ -92,7 +93,7 @@ class RequestPrayerScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => DevotionalScreen(
-                        title: 'Other',
+                        title: 'other'.tr,
                         songPath: 'musics/Request_generic.mp3',
                       ),
                     ),
@@ -104,7 +105,7 @@ class RequestPrayerScreen extends StatelessWidget {
                     height: 24,
                     width: 24,
                   ),
-                  lable: 'Other',
+                  lable: 'other'.tr,
                 ),
               ),
             ],

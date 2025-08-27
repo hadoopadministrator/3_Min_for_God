@@ -37,7 +37,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           },
         ),
         title: Text(
-          "Settings",
+          'settings'.tr,
           style: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -59,7 +59,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   height: 24,
                   width: 24,
                 ),
-                lable: 'Theme',
+                lable: 'theme'.tr,
                 trailingWidget: InkWell(
                   onTap: () {
                     setState(() {
@@ -74,14 +74,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ? Color(0xff539EA7)
                           : Color(0xffE2E2E2),
                       borderRadius: BorderRadius.circular(50),
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     blurRadius: 8,
-                      //     offset: Offset(0, 6),
-                      //     color: Color(0x1A000000),
-                      //     spreadRadius: 3,
-                      //   ),
-                      // ],
                     ),
                     alignment: isSwitchEnabled
                         ? Alignment.centerRight
@@ -125,7 +117,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   color: Color(0xff4B8E96),
                   size: 24,
                 ),
-                lable: 'Language',
+                lable: 'language'.tr,
                 trailingText: controller.locale.value.languageCode
                     .toUpperCase(),
                 trailingWidget: InkWell(
@@ -160,7 +152,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     height: 24,
                     width: 24,
                   ),
-                  lable: 'Set Notification Timing',
+                  lable: 'set_notification_timing'.tr,
                 ),
               ),
               const SizedBox(height: 16),
@@ -177,7 +169,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     color: Color(0xff4B8E96),
                     size: 24,
                   ),
-                  lable: 'About Us',
+                  lable: 'about_us'.tr,
                 ),
               ),
               const SizedBox(height: 16),
@@ -187,7 +179,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   height: 24,
                   width: 24,
                 ),
-                lable: 'Contact Us',
+                lable: 'contact_us'.tr,
               ),
             ],
           ),

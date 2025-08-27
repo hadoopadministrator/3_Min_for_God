@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:three_min_for_god/widgets/menu_card_widget.dart';
 
@@ -18,13 +19,13 @@ class _SetNotificationTimingScreenState
   List<bool> dayCheck = List.generate(7, (_) => false);
   int? selectedWeeklyIndex;
   List<String> days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
+    'monday'.tr,
+    'tuesday'.tr,
+    'wednesday'.tr,
+    'thursday'.tr,
+    'friday'.tr,
+    'saturday'.tr,
+    'sunday'.tr,
   ];
 
   // store selected time for each day
@@ -158,7 +159,7 @@ class _SetNotificationTimingScreenState
           },
         ),
         title: Text(
-          "Set Notification Timings",
+          'set_notification_timing'.tr,
           style: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -182,7 +183,7 @@ class _SetNotificationTimingScreenState
                       if (weeklyNotifi) dailyNotifi = false;
                     });
                   },
-                  title: "Weekly Reflection",
+                  title: 'weekly_reflection'.tr,
                 ),
                 NotificationCardWidget(
                   isSwitchEnabled: dailyNotifi,
@@ -192,7 +193,7 @@ class _SetNotificationTimingScreenState
                       if (dailyNotifi) weeklyNotifi = false;
                     });
                   },
-                  title: "Do you have 3 mins for god?",
+                  title: 'three_mins_for_god'.tr,
                 ),
                 if (dailyNotifi || weeklyNotifi)
                   Column(
@@ -221,8 +222,10 @@ class _SetNotificationTimingScreenState
                                     onChanged: (value) async {
                                       setState(() {
                                         selectedWeeklyIndex = value;
-                                         weeklyTime ??= const TimeOfDay(hour: 12, minute: 0);
-                                          
+                                        weeklyTime ??= const TimeOfDay(
+                                          hour: 12,
+                                          minute: 0,
+                                        );
                                       });
                                     },
                                   )
@@ -264,7 +267,10 @@ class _SetNotificationTimingScreenState
                                     horizontal: 10,
                                   ),
                                   child: InkWell(
-                                    onTap: () => _pickTime(index,isWeekly: weeklyNotifi),
+                                    onTap: () => _pickTime(
+                                      index,
+                                      isWeekly: weeklyNotifi,
+                                    ),
                                     child: SvgPicture.asset(
                                       'assets/icons/edit_time.svg',
                                       height: 16,
@@ -305,16 +311,13 @@ class NotificationCardWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-           gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [0.0,1.0],// 
-          colors: [
-          Color(0xffEEF2F2),
-          Color.fromARGB(255, 246, 248, 249)
-        ]
-        ),
-        border: Border.all(width: 1, color: Color(0xffB9C1C9)),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.0, 1.0], //
+            colors: [Color(0xffEEF2F2), Color.fromARGB(255, 246, 248, 249)],
+          ),
+          border: Border.all(width: 1, color: Color(0xffB9C1C9)),
         ),
 
         margin: EdgeInsets.all(1),

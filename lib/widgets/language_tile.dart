@@ -68,15 +68,6 @@ class LanguageTile extends StatelessWidget {
             ),
           ],
         ),
-        // subtitle: Text(
-        //   subtitle,
-        //   style: GoogleFonts.poppins(
-        //     color: Color(0xff6F6E6E),
-        //     fontSize: 10,
-        //     fontWeight: FontWeight.w400,
-        //     height: 1.0,
-        //   ),
-        // ),
         trailing: SizedBox(
           height: 24,
           width: 24,

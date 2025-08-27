@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AboutUsScreen extends StatelessWidget {
@@ -22,7 +23,7 @@ class AboutUsScreen extends StatelessWidget {
           },
         ),
         title: Text(
-          "About Us",
+          "about_us".tr,
           style: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.w500,
