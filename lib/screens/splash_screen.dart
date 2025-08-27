@@ -21,12 +21,12 @@ class _SplashScreenState extends State<SplashScreen> {
     final box = GetStorage();
     bool isLanguageSelected = box.read('isLanguageSelected') ?? false;
     Timer(const Duration(seconds: 6), () {
-      Navigator.pushReplacement(
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           builder: (context) =>
               isLanguageSelected ? HomeScreen() : LanguageSelectionScreen(),
-        ),
+        ), (route) => false,
       );
     });
   }

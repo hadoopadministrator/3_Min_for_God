@@ -19,10 +19,8 @@ class LanguageSelectionScreen extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             image: DecorationImage(
-               fit:  BoxFit.fill,
-              image: Svg(
-                'assets/images/language_background.svg',
-              ),
+              fit: BoxFit.fill,
+              image: Svg('assets/images/language_background.svg'),
             ),
           ),
           child: Padding(
@@ -65,8 +63,7 @@ class LanguageSelectionScreen extends StatelessWidget {
                         iconPath: 'assets/icons/flag_uk.svg',
                         title: 'ENGLISH',
                         subtitle: 'default_language'.tr,
-                        selected:
-                            controller.locale.value == Locale('en', 'US'),
+                        selected: controller.locale.value == Locale('en', 'US'),
                         onChanged: (value) {
                           controller.changeLocale(const Locale('en', 'US'));
                         },
@@ -76,8 +73,7 @@ class LanguageSelectionScreen extends StatelessWidget {
                         iconPath: 'assets/icons/flag_spain.svg',
                         title: 'SPANISH',
                         subtitle: 'spanish_language'.tr,
-                        selected:
-                            controller.locale.value == Locale('es', 'ES'),
+                        selected: controller.locale.value == Locale('es', 'ES'),
                         onChanged: (value) {
                           controller.changeLocale(const Locale('es', 'ES'));
                         },
@@ -120,13 +116,10 @@ class LanguageSelectionScreen extends StatelessWidget {
                   onTap: () {
                     final box = GetStorage();
                     box.write('isLanguageSelected', true);
-                    box.write(
-                      'selectedLanguage',
-                      '${controller.locale.value.languageCode}_${controller.locale.value.countryCode}',
-                    );
-                    Navigator.pushReplacement(
+                    Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => HomeScreen()),
+                      (route) => false,
                     );
                     debugPrint('Selected Locale: ${controller.locale.value}');
                   },

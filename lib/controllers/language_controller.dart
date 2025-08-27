@@ -20,7 +20,6 @@ class LanguageController extends GetxController {
 
   // Change app locale
   void changeLocale(Locale newLocale) {
-
     locale.value = newLocale;
     box.write('selectedLanguage', '${newLocale.languageCode}_${newLocale.countryCode}');
     Get.updateLocale(newLocale);

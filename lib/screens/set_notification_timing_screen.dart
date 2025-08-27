@@ -158,7 +158,7 @@ class _SetNotificationTimingScreenState
           },
         ),
         title: Text(
-          "Settings",
+          "Set Notification Timings",
           style: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -305,11 +305,16 @@ class NotificationCardWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Color(0xffEEF2F2),
-          border: Border.all(color: Color(0xffB9C1C9), width: 1),
-          // gradient: LinearGradient(
-          //   colors: [Color(0xffCCD9E5), Color(0xffB9C1C9)],
-          // ),
+           gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: [0.0,1.0],// 
+          colors: [
+          Color(0xffEEF2F2),
+          Color.fromARGB(255, 246, 248, 249)
+        ]
+        ),
+        border: Border.all(width: 1, color: Color(0xffB9C1C9)),
         ),
 
         margin: EdgeInsets.all(1),
@@ -352,14 +357,6 @@ class NotificationCardWidget extends StatelessWidget {
                       ? Color(0xff539EA7)
                       : Color(0xffE2E2E2),
                   borderRadius: BorderRadius.circular(50),
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //     blurRadius: 8,
-                  //     offset: Offset(0, 6),
-                  //     color: Color(0x1A000000),
-                  //     spreadRadius: 3,
-                  //   ),
-                  // ],
                 ),
                 alignment: isSwitchEnabled
                     ? Alignment.centerRight

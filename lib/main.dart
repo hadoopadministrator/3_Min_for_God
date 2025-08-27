@@ -6,11 +6,12 @@ import 'package:three_min_for_god/screens/splash_screen.dart';
 import 'package:three_min_for_god/translations/app_translations.dart';
 
 Future<void> main() async {
-   WidgetsFlutterBinding.ensureInitialized();
-    Get.put(LanguageController());
-  await GetStorage.init(); // initialize storage
+  WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init(); // initializes storage
+  Get.put(LanguageController());
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       translations: AppTranslations(),
-      locale: AppTranslations.fallbackLocale,
+      locale:  Get.find<LanguageController>().locale.value,
       fallbackLocale: AppTranslations.fallbackLocale,
       debugShowCheckedModeBanner: false,
       title: '3 Min for God',
