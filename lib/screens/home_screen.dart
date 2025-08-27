@@ -117,7 +117,7 @@ class MainContainer extends StatelessWidget {
                     Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DevotionalScreen(),
+                      builder: (context) => DevotionalScreen(title: 'Devotional', songPath: 'musics/close_day.mp3',),
                     ),
                   );
                 },

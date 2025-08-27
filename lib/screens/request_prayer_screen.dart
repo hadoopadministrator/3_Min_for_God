@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:three_min_for_god/screens/devotional_screen.dart';
 import 'package:three_min_for_god/widgets/menu_card_widget.dart';
 
 class RequestPrayerScreen extends StatelessWidget {
@@ -35,28 +36,81 @@ class RequestPrayerScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: SafeArea(child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-             const SizedBox(height: 24),
-              MenuCardWidget(
-                widget: SvgPicture.asset('assets/icons/health.svg',height: 24,width: 24,),
-                lable: 'Health',
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              const SizedBox(height: 24),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DevotionalScreen(
+                        title: 'Health',
+                        songPath: 'musics/Request_illness.mp3',
+                      ),
+                    ),
+                  );
+                },
+                child: MenuCardWidget(
+                  widget: SvgPicture.asset(
+                    'assets/icons/health.svg',
+                    height: 24,
+                    width: 24,
+                  ),
+                  lable: 'Health',
+                ),
               ),
               const SizedBox(height: 19),
-               MenuCardWidget(
-                widget: SvgPicture.asset('assets/icons/celebration.svg',height: 24,width: 24,),
-                lable: 'Birthday or Anniversary',
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DevotionalScreen(
+                        title: 'Birthday or Anniversary',
+                        songPath: 'musics/Request_birthday.mp3',
+                      ),
+                    ),
+                  );
+                },
+                child: MenuCardWidget(
+                  widget: SvgPicture.asset(
+                    'assets/icons/celebration.svg',
+                    height: 24,
+                    width: 24,
+                  ),
+                  lable: 'Birthday or Anniversary',
+                ),
               ),
               const SizedBox(height: 19),
-               MenuCardWidget(
-                widget: SvgPicture.asset('assets/icons/other.svg',height: 24,width: 24,),
-                lable: 'Other',
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DevotionalScreen(
+                        title: 'Other',
+                        songPath: 'musics/Request_generic.mp3',
+                      ),
+                    ),
+                  );
+                },
+                child: MenuCardWidget(
+                  widget: SvgPicture.asset(
+                    'assets/icons/other.svg',
+                    height: 24,
+                    width: 24,
+                  ),
+                  lable: 'Other',
+                ),
               ),
-          ],
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }

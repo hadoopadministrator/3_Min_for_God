@@ -1,18 +1,93 @@
 import 'dart:ui';
-
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DevotionalScreen extends StatefulWidget {
-  const DevotionalScreen({super.key});
+   final String title;
+  final String songPath;
+  const DevotionalScreen({super.key, required this.title, required this.songPath});
 
   @override
   State<DevotionalScreen> createState() => _DevotionalScreenState();
 }
 
 class _DevotionalScreenState extends State<DevotionalScreen> {
-  bool playPause = true;
+  final AudioPlayer _player = AudioPlayer();
+  bool isPlaying = false;
+  Future<void> _playPause() async {
+    if (!isPlaying) {
+      await _player.play(AssetSource(widget.songPath));
+    } else {
+      await _player.pause();
+    }
+    setState(() {
+      isPlaying = !isPlaying;
+    });
+  }
+
+  Duration _duration = Duration.zero;
+  Duration _position = Duration.zero;
+  @override
+  void initState() {
+    super.initState();
+    _player.play(AssetSource(widget.songPath));
+    isPlaying = true;
+    _player.onDurationChanged.listen((eventDuration) {
+      setState(() {
+        _duration = eventDuration;
+      });
+    });
+    _player.onPositionChanged.listen((eventPosition) {
+      setState(() {
+        _position = eventPosition;
+      });
+    });
+    _player.onPlayerComplete.listen((event) async {
+      if (_isRepeatOn) {
+        await _player.stop();
+        await _player.play(AssetSource(widget.songPath));
+      } else {
+        setState(() {
+          isPlaying = false;
+          _position = Duration.zero;
+        });
+      }
+    });
+  }
+
+  String _formatTime(Duration d) {
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    final minutes = twoDigits(d.inMinutes.remainder(60));
+    final seconds = twoDigits(d.inSeconds.remainder(60));
+    return "$minutes:$seconds";
+  }
+
+  String getRemainingTime() {
+    if (_duration == Duration.zero) {
+      return "--:--";
+    } else if (_position == Duration.zero && !isPlaying) {
+      return "-${_formatTime(_duration)}";
+    } else {
+      return "-${_formatTime(_duration - _position)}";
+    }
+  }
+
+  bool _isRepeatOn = false;
+
+  void _toggleRepeat() {
+    setState(() {
+      _isRepeatOn = !_isRepeatOn;
+    });
+  }
+
+  @override
+  void dispose() {
+    _player.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +107,7 @@ class _DevotionalScreenState extends State<DevotionalScreen> {
           },
         ),
         title: Text(
-          "Devotional",
+          widget.title,
           style: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -93,16 +168,24 @@ class _DevotionalScreenState extends State<DevotionalScreen> {
                       children: [
                         Expanded(
                           child: Slider(
-                            min: 50.0,
-                            max: 300.0,
+                            min: 0,
+                            max: _duration.inSeconds.toDouble(),
+                            value: _position.inSeconds.toDouble().clamp(
+                              0,
+                              _duration.inSeconds.toDouble(),
+                            ),
                             activeColor: Colors.white,
                             inactiveColor: Color(0x4DFFFFFF),
-                            onChanged: (value) {},
-                            value: 200,
+                            onChanged: (value) async {
+                              final newPosition = Duration(
+                                seconds: value.toInt(),
+                              );
+                               _player.seek(newPosition);
+                            },
                           ),
                         ),
                         Text(
-                          "-1:40",
+                          getRemainingTime(),
                           style: GoogleFonts.poppins(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -118,20 +201,19 @@ class _DevotionalScreenState extends State<DevotionalScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SvgPictureWidget(
-                          onTap: () {},
+                          onTap: _toggleRepeat,
                           iconPath: 'assets/icons/repeate_music.svg',
+                          colorFilter: ColorFilter.mode(
+                            _isRepeatOn ? Color(0xff112022) : Colors.white,
+                            BlendMode.srcIn,
+                          ),
                         ),
                         SvgPictureWidget(
                           onTap: () {},
                           iconPath: 'assets/icons/next.svg',
                         ),
                         InkWell(
-                          onTap: () {
-                            setState(() {
-                              playPause = !playPause;
-                            });
-                            _playPause();
-                          },
+                          onTap: _playPause,
                           child: Container(
                             height: 60,
                             width: 60,
@@ -141,7 +223,7 @@ class _DevotionalScreenState extends State<DevotionalScreen> {
                               borderRadius: BorderRadius.circular(50),
                             ),
                             child: SvgPicture.asset(
-                              playPause
+                              isPlaying
                                   ? 'assets/icons/pause.svg'
                                   : 'assets/icons/play.svg',
                               height: 28,
@@ -173,20 +255,17 @@ class _DevotionalScreenState extends State<DevotionalScreen> {
       ),
     );
   }
-  
-  void _playPause() {
-    // var player = AudioPlayer();
-        // player.play(AssetSource('note$number.wav'));
-  }
 }
 
 class SvgPictureWidget extends StatelessWidget {
   final VoidCallback onTap;
   final String iconPath;
+  final ColorFilter? colorFilter;
   const SvgPictureWidget({
     super.key,
     required this.onTap,
     required this.iconPath,
+    this.colorFilter,
   });
 
   @override
@@ -198,6 +277,7 @@ class SvgPictureWidget extends StatelessWidget {
         height: 32,
         width: 32,
         fit: BoxFit.none,
+        colorFilter: colorFilter,
       ),
     );
   }

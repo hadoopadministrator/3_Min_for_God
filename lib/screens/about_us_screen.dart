@@ -34,6 +34,7 @@ class AboutUsScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Container(
+          height: MediaQuery.sizeOf(context).height,
           decoration: BoxDecoration(
             color: Color(0xffEEF2F2),
             borderRadius: BorderRadius.circular(8),
