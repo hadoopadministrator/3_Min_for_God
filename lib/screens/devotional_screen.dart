@@ -1,96 +1,28 @@
 import 'dart:ui';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:three_min_for_god/controllers/audio_controller.dart';
 
-class DevotionalScreen extends StatefulWidget {
-   final String title;
+class DevotionalScreen extends StatelessWidget {
+  final String title;
   final String songPath;
-  const DevotionalScreen({super.key, required this.title, required this.songPath});
+  final String category;
+  DevotionalScreen({
+    super.key,
+    required this.title,
+    required this.songPath,
+    required this.category,
+  });
 
-  @override
-  State<DevotionalScreen> createState() => _DevotionalScreenState();
-}
-
-class _DevotionalScreenState extends State<DevotionalScreen> {
-  final AudioPlayer _player = AudioPlayer();
-  bool isPlaying = false;
-  Future<void> _playPause() async {
-    if (!isPlaying) {
-      await _player.play(AssetSource(widget.songPath));
-    } else {
-      await _player.pause();
-    }
-    setState(() {
-      isPlaying = !isPlaying;
-    });
-  }
-
-  Duration _duration = Duration.zero;
-  Duration _position = Duration.zero;
-  @override
-  void initState() {
-    super.initState();
-    _player.play(AssetSource(widget.songPath));
-    isPlaying = true;
-    _player.onDurationChanged.listen((eventDuration) {
-      setState(() {
-        _duration = eventDuration;
-      });
-    });
-    _player.onPositionChanged.listen((eventPosition) {
-      setState(() {
-        _position = eventPosition;
-      });
-    });
-    _player.onPlayerComplete.listen((event) async {
-      if (_isRepeatOn) {
-        await _player.stop();
-        await _player.play(AssetSource(widget.songPath));
-      } else {
-        setState(() {
-          isPlaying = false;
-          _position = Duration.zero;
-        });
-      }
-    });
-  }
-
-  String _formatTime(Duration d) {
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    final minutes = twoDigits(d.inMinutes.remainder(60));
-    final seconds = twoDigits(d.inSeconds.remainder(60));
-    return "$minutes:$seconds";
-  }
-
-  String getRemainingTime() {
-    if (_duration == Duration.zero) {
-      return "--:--";
-    } else if (_position == Duration.zero && !isPlaying) {
-      return "-${_formatTime(_duration)}";
-    } else {
-      return "-${_formatTime(_duration - _position)}";
-    }
-  }
-
-  bool _isRepeatOn = false;
-
-  void _toggleRepeat() {
-    setState(() {
-      _isRepeatOn = !_isRepeatOn;
-    });
-  }
-
-  @override
-  void dispose() {
-    _player.dispose();
-    super.dispose();
-  }
+  final AudioController audioController = Get.find<AudioController>();
 
   @override
   Widget build(BuildContext context) {
+    if (audioController.currentSongPath.value != songPath) {
+      audioController.play(songPath: songPath, category: category);
+    }
     return Scaffold(
       backgroundColor: Color(0xffEEF2F2),
       appBar: AppBar(
@@ -108,7 +40,7 @@ class _DevotionalScreenState extends State<DevotionalScreen> {
           },
         ),
         title: Text(
-          widget.title,
+          title,
           style: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -154,7 +86,7 @@ class _DevotionalScreenState extends State<DevotionalScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'petitions'.tr,
+                      category,
                       style: GoogleFonts.poppins(
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
@@ -164,88 +96,105 @@ class _DevotionalScreenState extends State<DevotionalScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Slider(
-                            min: 0,
-                            max: _duration.inSeconds.toDouble(),
-                            value: _position.inSeconds.toDouble().clamp(
-                              0,
-                              _duration.inSeconds.toDouble(),
+                    Obx(() {
+                      final maxDuration =
+                          audioController.duration.value.inSeconds > 0
+                          ? audioController.duration.value.inSeconds.toDouble()
+                          : 1.0;
+                      final currentPosition = audioController
+                          .position
+                          .value
+                          .inSeconds
+                          .toDouble()
+                          .clamp(0.0, maxDuration);
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Slider(
+                              min: 0.0,
+                              max: maxDuration,
+                              value: currentPosition,
+                              activeColor: Colors.white,
+                              inactiveColor: Color(0x4DFFFFFF),
+                              onChanged: (value) async {
+                                audioController.seek(
+                                  Duration(seconds: value.toInt()),
+                                );
+                              },
                             ),
-                            activeColor: Colors.white,
-                            inactiveColor: Color(0x4DFFFFFF),
-                            onChanged: (value) async {
-                              final newPosition = Duration(
-                                seconds: value.toInt(),
-                              );
-                               _player.seek(newPosition);
-                            },
                           ),
-                        ),
-                        Text(
-                          getRemainingTime(),
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            height: 1.3,
-                            letterSpacing: -0.02 * 12,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 28),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SvgPictureWidget(
-                          onTap: _toggleRepeat,
-                          iconPath: 'assets/icons/repeate_music.svg',
-                          colorFilter: ColorFilter.mode(
-                            _isRepeatOn ? Color(0xff112022) : Colors.white,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        SvgPictureWidget(
-                          onTap: () {},
-                          iconPath: 'assets/icons/next.svg',
-                        ),
-                        InkWell(
-                          onTap: _playPause,
-                          child: Container(
-                            height: 60,
-                            width: 60,
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
+                          Text(
+                            audioController.getRemainingTime(),
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              height: 1.3,
+                              letterSpacing: -0.02 * 12,
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(50),
                             ),
-                            child: SvgPicture.asset(
-                              isPlaying
-                                  ? 'assets/icons/pause.svg'
-                                  : 'assets/icons/play.svg',
-                              height: 28,
-                              width: 28,
-                              fit: BoxFit.none,
-                              colorFilter: ColorFilter.mode(
-                                Color(0xff112022),
-                                BlendMode.srcIn,
+                          ),
+                        ],
+                      );
+                    }),
+                    const SizedBox(height: 28),
+                    Obx(
+                      () => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SvgPictureWidget(
+                            onTap: audioController.toggleRepeat,
+                            iconPath: 'assets/icons/repeate_music.svg',
+                            colorFilter: ColorFilter.mode(
+                              audioController.isRepeatOn.value
+                                  ? Color(0xff112022)
+                                  : Colors.white,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                          SvgPictureWidget(
+                            onTap: () {},
+                            iconPath: 'assets/icons/next.svg',
+                          ),
+                          InkWell(
+                            onTap: () {
+                              audioController.play(
+                                songPath: songPath,
+                                category: category,
+                              );
+                            },
+                            child: Container(
+                              height: 60,
+                              width: 60,
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: SvgPicture.asset(
+                                audioController.isPlaying.value
+                                    ? 'assets/icons/pause.svg'
+                                    : 'assets/icons/play.svg',
+                                height: 28,
+                                width: 28,
+                                fit: BoxFit.none,
+                                colorFilter: ColorFilter.mode(
+                                  Color(0xff112022),
+                                  BlendMode.srcIn,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        SvgPictureWidget(
-                          onTap: () {},
-                          iconPath: 'assets/icons/previous.svg',
-                        ),
-                        SvgPictureWidget(
-                          onTap: () {},
-                          iconPath: 'assets/icons/volume_high.svg',
-                        ),
-                      ],
+                          SvgPictureWidget(
+                            onTap: () {},
+                            iconPath: 'assets/icons/previous.svg',
+                          ),
+                          SvgPictureWidget(
+                            onTap: () {},
+                            iconPath: 'assets/icons/volume_high.svg',
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

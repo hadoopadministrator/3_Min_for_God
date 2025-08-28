@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:three_min_for_god/controllers/audio_controller.dart';
 import 'package:three_min_for_god/controllers/language_controller.dart';
 import 'package:three_min_for_god/screens/splash_screen.dart';
 import 'package:three_min_for_god/translations/app_translations.dart';
@@ -9,6 +10,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init(); // initializes storage
   Get.put(LanguageController());
+  Get.put(AudioController());
   runApp(const MyApp());
 }
 

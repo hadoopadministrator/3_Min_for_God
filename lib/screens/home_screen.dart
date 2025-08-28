@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:three_min_for_god/controllers/audio_controller.dart';
 import 'package:three_min_for_god/screens/animonks_screen.dart';
 import 'package:three_min_for_god/screens/devotional_screen.dart';
 import 'package:three_min_for_god/screens/request_prayer_screen.dart';
@@ -99,8 +100,46 @@ class _HomeScreenState extends State<HomeScreen> {
 class MainContainer extends StatelessWidget {
   const MainContainer({super.key});
 
+  /// Get devotional song based on current time
+  String getDevotionalSong() {
+    final hour = DateTime.now().hour;
+
+    if (hour < 12) {
+      return 'musics/devotional_morning.mp3'; // Morning song
+    } else if (hour < 16) {
+      return 'musics/devotional_afternoon.mp3'; // Afternoon song
+    } else {
+      return 'musics/devotional_evening.mp3'; // Evening song
+    }
+  }
+
+  /// Get Petition song based on current weekday
+  String getPetitionSong() {
+    final weekday = DateTime.now().weekday; // 1=Mon, 7=Sun
+    switch (weekday) {
+      case DateTime.monday:
+        return 'musics/petition_mon.mp3';
+      case DateTime.tuesday:
+        return 'musics/petition_tue.mp3';
+      case DateTime.wednesday:
+        return 'musics/petition_wed.mp3';
+      case DateTime.thursday:
+        return 'musics/petition_thu.mp3';
+      case DateTime.friday:
+        return 'musics/petition_fri.mp3';
+      case DateTime.saturday:
+        return 'musics/petition_sat.mp3';
+      case DateTime.sunday:
+        return 'musics/petition_sun.mp3';
+      default:
+        assert(false, "Invalid weekday");
+        return 'musics/petition_mon.mp3'; // fallback
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final audioController = Get.find<AudioController>();
     return Container(
       margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20, top: 24),
       child: Column(
@@ -122,14 +161,17 @@ class MainContainer extends StatelessWidget {
               Expanded(
                 child: ContainerWidget(
                   iconPath: 'assets/icons/devotional.svg',
-                  iconTitle:  'devotional'.tr,
+                  iconTitle: 'devotional'.tr,
                   onTap: () {
+                    final songPath = getDevotionalSong();
+                    final category = 'devotional'.tr;
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => DevotionalScreen(
-                          title:  'devotional'.tr,
-                          songPath: 'musics/close_day.mp3',
+                          title: category,
+                          songPath: songPath, // Dynamic song
+                          category: category,
                         ),
                       ),
                     );
@@ -141,7 +183,14 @@ class MainContainer extends StatelessWidget {
                 child: ContainerWidget(
                   iconPath: 'assets/icons/petitions.svg',
                   iconTitle: 'petitions'.tr,
-                  onTap: () {},
+                  onTap: () {
+                    final songPath = getPetitionSong();
+                    final category = 'petitions'.tr;
+                    audioController.play(
+                      songPath: songPath,
+                      category: category,
+                    );
+                  },
                 ),
               ),
             ],
@@ -152,7 +201,7 @@ class MainContainer extends StatelessWidget {
               Expanded(
                 child: ContainerWidget(
                   iconPath: 'assets/icons/request.svg',
-                  iconTitle: 'request_prayer'.tr, 
+                  iconTitle: 'request'.tr,
                   onTap: () {
                     Navigator.push(
                       context,
@@ -180,7 +229,28 @@ class MainContainer extends StatelessWidget {
           ),
           const Spacer(),
 
-          SongPlayWidget(),
+          Obx(() {
+            if (!audioController.hasSongPlayed.value) {
+              return const SizedBox.shrink();
+            }
+            return InkWell(
+              onTap: () {
+                if (audioController.currentSongPath.value.isNotEmpty) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DevotionalScreen(
+                        title: audioController.currentCategory.value,
+                        songPath: audioController.currentSongPath.value,
+                        category: audioController.currentCategory.value,
+                      ),
+                    ),
+                  );
+                }
+              },
+              child: SongPlayWidget(),
+            );
+          }),
         ],
       ),
     );
@@ -192,99 +262,125 @@ class SongPlayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 8, top: 8, right: 16, bottom: 9),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [0.0, 1.0], //
-          colors: [Color(0xffEEF2F2), Color.fromARGB(255, 246, 248, 249)],
+    final audioController = Get.find<AudioController>();
+    return Obx(
+      () => Container(
+        padding: const EdgeInsets.only(left: 8, top: 8, right: 16, bottom: 9),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.0, 1.0], //
+            colors: [Color(0xffEEF2F2), Color.fromARGB(255, 246, 248, 249)],
+          ),
+          border: Border.all(width: 1, color: Color(0xffB9C1C9)),
         ),
-        border: Border.all(width: 1, color: Color(0xffB9C1C9)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                height: 48,
-                width: 48,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Image.asset(
-                  'assets/images/song_play_background.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                 'petitions'.tr,
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  height: 1.3,
-                  letterSpacing: -0.02 * 14,
-                  color: Color(0xff112022),
-                ),
-              ),
-              const Spacer(),
-              SizedBox(
-                height: 20,
-                width: 20,
-                child: SvgPicture.asset(
-                  'assets/icons/pause.svg',
-                  fit: BoxFit.contain,
-                ),
-              ),
-              const SizedBox(width: 8),
-              SizedBox(
-                height: 24,
-                width: 24,
-                child: SvgPicture.asset(
-                  'assets/icons/volume_high.svg',
-                  fit: BoxFit.contain,
-                  colorFilter: ColorFilter.mode(
-                    Color(0xff112022),
-                    BlendMode.srcIn,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Image.asset(
+                    'assets/images/song_play_background.png',
+                    fit: BoxFit.cover,
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 11),
-          Row(
-            children: [
-              Expanded(
-                child: Slider(
-                  padding: EdgeInsets.all(0),
-                  min: 0,
-                  max: 250,
-                  value: 150,
-                  activeColor: Color(0xff4B8E96),
-                  inactiveColor: Color(0xffEBF0F5),
-                  thumbColor: Colors.white,
-                  onChanged: (value) async {},
+                const SizedBox(width: 8),
+                Text(
+                  audioController.currentSongPath.value.isEmpty
+                      ? "now_playing".tr
+                      : audioController.currentSongPath.value.split('/').last,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    height: 1.3,
+                    letterSpacing: -0.02 * 14,
+                    color: Color(0xff112022),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 11),
-              Text(
-                '-1:40',
-                style: GoogleFonts.poppins(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  height: 1.3,
-                  letterSpacing: -0.02 * 12,
-                  color: Color(0xff93989D),
+                const Spacer(),
+                InkWell(
+                  onTap: () => audioController.play(
+                    songPath: audioController.currentSongPath.value,
+                    category: audioController.currentCategory.value,
+                  ),
+                  child: SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: SvgPicture.asset(
+                      audioController.isPlaying.value
+                          ? 'assets/icons/pause.svg'
+                          : 'assets/icons/play.svg',
+                      fit: BoxFit.contain,
+                      colorFilter: ColorFilter.mode(
+                        Color(0xff112022),
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 37),
-            ],
-          ),
-        ],
+                const SizedBox(width: 8),
+                SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: SvgPicture.asset(
+                    'assets/icons/volume_high.svg',
+                    fit: BoxFit.contain,
+                    colorFilter: ColorFilter.mode(
+                      Color(0xff112022),
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 11),
+            Row(
+              children: [
+                Expanded(
+                  child: Slider(
+                    padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                    min: 0,
+                    max: audioController.duration.value.inSeconds.toDouble(),
+                    value: audioController.position.value.inSeconds
+                        .toDouble()
+                        .clamp(
+                          0,
+                          audioController.duration.value.inSeconds.toDouble(),
+                        ),
+                    activeColor: Color(0xff4B8E96),
+                    inactiveColor: Color(0xffEBF0F5),
+                    thumbColor: Colors.white,
+                    onChanged: (value) async {
+                      await audioController.seek(
+                        Duration(seconds: value.toInt()),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(width: 11),
+                Text(
+                  audioController.getRemainingTime(),
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    height: 1.3,
+                    letterSpacing: -0.02 * 12,
+                    color: Color(0xff93989D),
+                  ),
+                ),
+                const SizedBox(width: 37),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -45,12 +45,15 @@ class RequestPrayerScreen extends StatelessWidget {
               const SizedBox(height: 24),
               InkWell(
                 onTap: () {
+                  final songPath = 'musics/request_illness.mp3';
+                  final category = 'health'.tr;
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => DevotionalScreen(
                         title: 'health'.tr,
-                        songPath: 'musics/Request_illness.mp3',
+                        songPath: songPath,
+                        category: category,
                       ),
                     ),
                   );
@@ -67,12 +70,15 @@ class RequestPrayerScreen extends StatelessWidget {
               const SizedBox(height: 19),
               InkWell(
                 onTap: () {
+                  final songPath = 'musics/request_birthday.mp3';
+                  final category = 'birthday_or_anniversary'.tr;
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => DevotionalScreen(
                         title: 'birthday_or_anniversary'.tr,
-                        songPath: 'musics/Request_birthday.mp3',
+                        songPath: songPath,
+                        category: category,
                       ),
                     ),
                   );
@@ -89,12 +95,15 @@ class RequestPrayerScreen extends StatelessWidget {
               const SizedBox(height: 19),
               InkWell(
                 onTap: () {
+                  final songPath = 'musics/request_generic.mp3';
+                  final category = 'other'.tr;
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => DevotionalScreen(
                         title: 'other'.tr,
-                        songPath: 'musics/Request_generic.mp3',
+                        songPath: songPath,
+                        category: category,
                       ),
                     ),
                   );
