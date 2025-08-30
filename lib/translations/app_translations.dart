@@ -64,7 +64,7 @@ class AppTranslations extends Translations {
       // set notification timing screen
       'weekly_reflection': 'Weekly Reflection',
       'three_mins_for_god': 'Do you have 3 mins for God?',
-      
+
       // splash screen
       'splash_label': '3 MIN FOR GOD',
     },
@@ -125,7 +125,7 @@ class AppTranslations extends Translations {
       // set notification timing screen
       'weekly_reflection': 'Reflexión Semanal',
       'three_mins_for_god': '¿Tienes 3 minutos para Dios?',
-      
+
       // splash screen
       'splash_label': '3 MIN PARA DIOS',
     },

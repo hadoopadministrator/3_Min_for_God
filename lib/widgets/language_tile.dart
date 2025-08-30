@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:three_min_for_god/controllers/theme_controller.dart';
 
 class LanguageTile extends StatelessWidget {
   final String iconPath;
@@ -19,17 +21,25 @@ class LanguageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeController = Get.find<ThemeController>();
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: themeController.isDarkMode.value
+            ? Color(0xff0D0D0D)
+            : Colors.white,
         borderRadius: BorderRadius.circular(16),
+        border: themeController.isDarkMode.value
+            ? Border.all(width: 1, color: Color(0xff2C4345))
+            : null,
         boxShadow: [
           BoxShadow(
             offset: Offset(-1, 1),
             blurRadius: 69.7,
             spreadRadius: 0,
-            color: Colors.black.withValues(alpha: 0.10),
+            color: themeController.isDarkMode.value
+                ? Color(0x1A5C5959)
+                : Colors.black.withValues(alpha: 0.10),
           ),
         ],
       ),
@@ -50,7 +60,9 @@ class LanguageTile extends StatelessWidget {
             Text(
               title,
               style: GoogleFonts.poppins(
-                color: Colors.black,
+                color: themeController.isDarkMode.value
+                    ? Colors.white
+                    : Colors.black,
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 height: 1.0,
@@ -78,7 +90,9 @@ class LanguageTile extends StatelessWidget {
               Set<WidgetState> states,
             ) {
               if (states.contains(WidgetState.selected)) {
-                return Color(0xff0A7AFF);
+                return themeController.isDarkMode.value
+                    ? Color(0xff2486FF)
+                    : Color(0xff0A7AFF);
               }
               return Color(0xff8E8E93);
             }),

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:three_min_for_god/controllers/audio_controller.dart';
+import 'package:three_min_for_god/controllers/theme_controller.dart';
 import 'package:three_min_for_god/screens/animonks_screen.dart';
 import 'package:three_min_for_god/screens/devotional_screen.dart';
 import 'package:three_min_for_god/screens/request_prayer_screen.dart';
@@ -19,11 +20,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
-  final List<String> _iconPaths = [
-    'assets/icons/ask_ai.svg',
-    'assets/icons/crosswords.svg',
-    'assets/icons/faith_ai.svg',
-  ];
+  // final List<String> _iconPaths = [
+  //   'assets/icons/ask_ai.svg',
+  //   'assets/icons/crosswords.svg',
+  //   'assets/icons/faith_ai.svg',
+  // ];
 
   final List<String> _iconLabels = ['ask_cathy'.tr, '', 'ai_faith_coach'.tr];
 
@@ -41,12 +42,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return 'good_evening'.tr;
   }
 
+  final ThemeController themeController = Get.find<ThemeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffEEF2F2),
+      backgroundColor: themeController.isDarkMode.value
+          ? Color(0xff1C1C1C)
+          : Color(0xffEEF2F2),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: themeController.isDarkMode.value
+            ? Color(0xff0D0D0D)
+            : Colors.white,
         title: Text(
           getGreetingMessage(),
           style: GoogleFonts.poppins(
@@ -54,7 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
             fontWeight: FontWeight.w500,
             height: 1.3,
             letterSpacing: -0.02 * 18,
-            color: Color(0xff112022),
+            color: themeController.isDarkMode.value
+                ? Color(0xffDDECEE)
+                : Color(0xff112022),
           ),
         ),
 
@@ -72,6 +80,12 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 20,
               width: 20,
               fit: BoxFit.contain,
+              colorFilter: ColorFilter.mode(
+                themeController.isDarkMode.value
+                    ? Color(0xffDDECEE)
+                    : Color(0xff112022),
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ],
@@ -89,7 +103,13 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           }
         },
-        iconPaths: _iconPaths,
+        iconPaths: [
+          'assets/icons/ask_ai.svg',
+          themeController.isDarkMode.value
+              ? 'assets/icons/crosswords_dark.svg'
+              : 'assets/icons/crosswords.svg',
+          'assets/icons/faith_ai.svg',
+        ],
         iconLabels: _iconLabels,
       ),
       body: SafeArea(child: _pages[_currentIndex]),
@@ -140,118 +160,125 @@ class MainContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final audioController = Get.find<AudioController>();
+    final ThemeController themeController = Get.find<ThemeController>();
     return Container(
       margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20, top: 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'choose_prayer'.tr,
-            style: GoogleFonts.poppins(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              height: 1.3,
-              letterSpacing: -0.02 * 20,
-              color: Color(0xff112022),
+      child: Obx(
+        () => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'choose_prayer'.tr,
+              style: GoogleFonts.poppins(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                height: 1.3,
+                letterSpacing: -0.02 * 20,
+                color: themeController.isDarkMode.value
+                    ? Color(0xffDDECEE)
+                    : Color(0xff112022),
+              ),
             ),
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              Expanded(
-                child: ContainerWidget(
-                  iconPath: 'assets/icons/devotional.svg',
-                  iconTitle: 'devotional'.tr,
-                  onTap: () {
-                    final songPath = getDevotionalSong();
-                    final category = 'devotional'.tr;
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: ContainerWidget(
+                    iconPath: 'assets/icons/devotional.svg',
+                    iconTitle: 'devotional'.tr,
+                    onTap: () {
+                      final songPath = getDevotionalSong();
+                      final category = 'devotional'.tr;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DevotionalScreen(
+                            title: category,
+                            songPath: songPath, // Dynamic song
+                            category: category,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: ContainerWidget(
+                    iconPath: 'assets/icons/petitions.svg',
+                    iconTitle: 'petitions'.tr,
+                    onTap: () {
+                      final songPath = getPetitionSong();
+                      final category = 'petitions'.tr;
+                      audioController.play(
+                        songPath: songPath,
+                        category: category,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: ContainerWidget(
+                    iconPath: 'assets/icons/request.svg',
+                    iconTitle: 'request'.tr,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RequestPrayerScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: ContainerWidget(
+                    iconPath: 'assets/icons/animonks.svg',
+                    iconTitle: 'animonks'.tr,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AnimonksScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const Spacer(),
+
+            Obx(() {
+              if (!audioController.hasSongPlayed.value) {
+                return const SizedBox.shrink();
+              }
+              return InkWell(
+                onTap: () {
+                  if (audioController.currentSongPath.value.isNotEmpty) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => DevotionalScreen(
-                          title: category,
-                          songPath: songPath, // Dynamic song
-                          category: category,
+                          title: audioController.currentCategory.value,
+                          songPath: audioController.currentSongPath.value,
+                          category: audioController.currentCategory.value,
                         ),
                       ),
                     );
-                  },
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: ContainerWidget(
-                  iconPath: 'assets/icons/petitions.svg',
-                  iconTitle: 'petitions'.tr,
-                  onTap: () {
-                    final songPath = getPetitionSong();
-                    final category = 'petitions'.tr;
-                    audioController.play(
-                      songPath: songPath,
-                      category: category,
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              Expanded(
-                child: ContainerWidget(
-                  iconPath: 'assets/icons/request.svg',
-                  iconTitle: 'request'.tr,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RequestPrayerScreen(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: ContainerWidget(
-                  iconPath: 'assets/icons/animonks.svg',
-                  iconTitle: 'animonks'.tr,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AnimonksScreen()),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-          const Spacer(),
-
-          Obx(() {
-            if (!audioController.hasSongPlayed.value) {
-              return const SizedBox.shrink();
-            }
-            return InkWell(
-              onTap: () {
-                if (audioController.currentSongPath.value.isNotEmpty) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DevotionalScreen(
-                        title: audioController.currentCategory.value,
-                        songPath: audioController.currentSongPath.value,
-                        category: audioController.currentCategory.value,
-                      ),
-                    ),
-                  );
-                }
-              },
-              child: SongPlayWidget(),
-            );
-          }),
-        ],
+                  }
+                },
+                child: SongPlayWidget(),
+              );
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -263,6 +290,7 @@ class SongPlayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final audioController = Get.find<AudioController>();
+    final themeController = Get.find<ThemeController>();
     return Obx(
       () => Container(
         padding: const EdgeInsets.only(left: 8, top: 8, right: 16, bottom: 9),
@@ -272,9 +300,16 @@ class SongPlayWidget extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             stops: [0.0, 1.0], //
-            colors: [Color(0xffEEF2F2), Color.fromARGB(255, 246, 248, 249)],
+            colors: themeController.isDarkMode.value
+                ? [Color(0xff0D0D0D), Color(0xff333333)]
+                : [Color(0xffEEF2F2), Color(0xFFF6F8F9)],
           ),
-          border: Border.all(width: 1, color: Color(0xffB9C1C9)),
+          border: Border.all(
+            width: 1,
+            color: themeController.isDarkMode.value
+                ? Color(0xffB9C1C9)
+                : Color(0xffB9C1C9),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -302,7 +337,9 @@ class SongPlayWidget extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     height: 1.3,
                     letterSpacing: -0.02 * 14,
-                    color: Color(0xff112022),
+                    color: themeController.isDarkMode.value
+                        ? Color(0xffDDECEE)
+                        : Color(0xff112022),
                   ),
                 ),
                 const Spacer(),
@@ -320,7 +357,9 @@ class SongPlayWidget extends StatelessWidget {
                           : 'assets/icons/play.svg',
                       fit: BoxFit.contain,
                       colorFilter: ColorFilter.mode(
-                        Color(0xff112022),
+                        themeController.isDarkMode.value
+                            ? Color(0xffDDECEE)
+                            : Color(0xff112022),
                         BlendMode.srcIn,
                       ),
                     ),
@@ -334,7 +373,9 @@ class SongPlayWidget extends StatelessWidget {
                     'assets/icons/volume_high.svg',
                     fit: BoxFit.contain,
                     colorFilter: ColorFilter.mode(
-                      Color(0xff112022),
+                      themeController.isDarkMode.value
+                          ? Color(0xffDDECEE)
+                          : Color(0xff112022),
                       BlendMode.srcIn,
                     ),
                   ),
@@ -346,7 +387,14 @@ class SongPlayWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: Slider(
-                    padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 0,
+                      horizontal:
+                          audioController.duration.value.inSeconds.toDouble() ==
+                              0.0
+                          ? 8
+                          : 0,
+                    ),
                     min: 0,
                     max: audioController.duration.value.inSeconds.toDouble(),
                     value: audioController.position.value.inSeconds
@@ -355,9 +403,15 @@ class SongPlayWidget extends StatelessWidget {
                           0,
                           audioController.duration.value.inSeconds.toDouble(),
                         ),
-                    activeColor: Color(0xff4B8E96),
-                    inactiveColor: Color(0xffEBF0F5),
-                    thumbColor: Colors.white,
+                    activeColor: themeController.isDarkMode.value
+                        ? Color(0xff539EA7)
+                        : Color(0xff4B8E96),
+                    inactiveColor: themeController.isDarkMode.value
+                        ? Color(0xff1C1C1C)
+                        : Color(0xffEBF0F5),
+                    thumbColor: themeController.isDarkMode.value
+                        ? Color(0xff0D0D0D)
+                        : Colors.white,
                     onChanged: (value) async {
                       await audioController.seek(
                         Duration(seconds: value.toInt()),
@@ -399,15 +453,23 @@ class ContainerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeController = Get.find<ThemeController>();
     return InkWell(
       onTap: onTap,
       child: Container(
         height: 115,
         padding: const EdgeInsets.only(left: 40, bottom: 14, right: 40),
         decoration: BoxDecoration(
-          color: Color(0x1AFFFFFF),
+          color: themeController.isDarkMode.value
+              ? Color(0x8B0D0D0D) // 1A0D0D0D
+              : Color(0x1AFFFFFF),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.white, width: 1),
+          border: Border.all(
+            color: themeController.isDarkMode.value
+                ? Colors.white24
+                : Colors.white,
+            width: 1,
+          ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -426,7 +488,9 @@ class ContainerWidget extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 height: 1.3,
                 letterSpacing: -0.02 * 14,
-                color: Color(0xff112022),
+                color: themeController.isDarkMode.value
+                    ? Color(0xffDDECEE)
+                    : Color(0xff112022),
               ),
             ),
           ],

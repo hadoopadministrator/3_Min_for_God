@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:three_min_for_god/controllers/theme_controller.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   final int currentIndex;
@@ -17,8 +19,13 @@ class BottomNavigationBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeController = Get.find<ThemeController>();
     return Container(
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: BoxDecoration(
+        color: themeController.isDarkMode.value
+            ? Color(0xff0D0D0D)
+            : Colors.white,
+      ),
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -39,13 +46,15 @@ class BottomNavigationBarWidget extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   iconLabels[index],
-                  style:index == 1 ? TextStyle() : GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    height: 1.3,
-                    letterSpacing: -0.02 * 12,
-                    color: Color(0xff93989D),
-                  ),
+                  style: index == 1
+                      ? TextStyle()
+                      : GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          height: 1.3,
+                          letterSpacing: -0.02 * 12,
+                          color: Color(0xff93989D),
+                        ),
                 ),
               ],
             ),

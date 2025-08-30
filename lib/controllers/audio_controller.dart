@@ -14,7 +14,6 @@ class AudioController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // _player.play(AssetSource(widget.songPath));
     isPlaying.value = true;
     player.onDurationChanged.listen((d) {
       duration.value = d;
@@ -34,16 +33,16 @@ class AudioController extends GetxController {
     });
   }
 
-  Future<void> play({required String songPath,String category = ""}) async {
+  Future<void> play({required String songPath, String category = ""}) async {
     if (currentSongPath.value != songPath) {
       await player.stop();
       currentSongPath.value = songPath;
       if (category.isNotEmpty) {
-      currentCategory.value = category; //  Save category
-    }
+        currentCategory.value = category; //  Save category
+      }
       await player.play(AssetSource(songPath));
       isPlaying.value = true;
-       hasSongPlayed.value = true; 
+      hasSongPlayed.value = true;
     } else {
       if (!isPlaying.value) {
         await player.resume();

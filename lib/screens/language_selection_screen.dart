@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:three_min_for_god/controllers/language_controller.dart';
+import 'package:three_min_for_god/controllers/theme_controller.dart';
 import 'package:three_min_for_god/screens/home_screen.dart';
 import 'package:three_min_for_god/widgets/language_tile.dart';
 
@@ -11,6 +12,7 @@ class LanguageSelectionScreen extends StatelessWidget {
   LanguageSelectionScreen({super.key});
 
   final LanguageController controller = Get.find<LanguageController>();
+  final ThemeController themeController = Get.find<ThemeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +22,11 @@ class LanguageSelectionScreen extends StatelessWidget {
             color: Colors.white,
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: Svg('assets/images/language_background.svg'),
+              image: Svg(
+                themeController.isDarkMode.value
+                    ? 'assets/images/language_background_dark.svg'
+                    : 'assets/images/language_background.svg',
+              ),
             ),
           ),
           child: Padding(
@@ -38,7 +44,9 @@ class LanguageSelectionScreen extends StatelessWidget {
                 Text(
                   'choose_language'.tr,
                   style: GoogleFonts.poppins(
-                    color: Colors.black,
+                    color: themeController.isDarkMode.value
+                        ? Colors.white
+                        : Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                     height: 1.0,
@@ -88,14 +96,22 @@ class LanguageSelectionScreen extends StatelessWidget {
                     vertical: 0,
                   ),
                   decoration: BoxDecoration(
-                    color: Color(0xffEFF9FF),
+                    color: themeController.isDarkMode.value
+                        ? Color(0xff151515)
+                        : Color(0xffEFF9FF),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   height: 63,
                   width: 300,
                   child: Row(
                     children: [
-                      Icon(Icons.error, color: Color(0xff4F46E5), size: 10),
+                      Icon(
+                        Icons.error,
+                        color: themeController.isDarkMode.value
+                            ? Color(0xff635CE8)
+                            : Color(0xff4F46E5),
+                        size: 10,
+                      ),
                       const SizedBox(width: 9),
                       Expanded(
                         child: Text(
@@ -116,6 +132,10 @@ class LanguageSelectionScreen extends StatelessWidget {
                   onTap: () {
                     final box = GetStorage();
                     box.write('isLanguageSelected', true);
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => HomeScreen()),
+                    // );
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => HomeScreen()),
@@ -129,7 +149,9 @@ class LanguageSelectionScreen extends StatelessWidget {
                       vertical: 14,
                     ),
                     decoration: BoxDecoration(
-                      color: Color(0xff4B8E96),
+                      color: themeController.isDarkMode.value
+                          ? Color(0xff539EA7)
+                          : Color(0xff4B8E96),
                       borderRadius: BorderRadius.circular(66),
                     ),
                     height: 56,
@@ -138,7 +160,9 @@ class LanguageSelectionScreen extends StatelessWidget {
                     child: Text(
                       'continue'.tr,
                       style: GoogleFonts.poppins(
-                        color: Colors.white,
+                        color: themeController.isDarkMode.value
+                            ? Color(0xff0D0D0D)
+                            : Colors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         height: 1.0,
