@@ -1,0 +1,256 @@
+{
+    "weeks": [
+        {
+            "week": 1,
+            "animal": "Camel",
+            "image": "assets/images/camel.jpg",
+            "days": [
+                {
+                    "day": "Monday",
+                    "type": "Food",
+                    "Gratitude Prompt": "What was something you ate today that gave you strength?",
+                    "Learn": "Camels graze on tough desert plants like saltbush, acacia leaves, and halophytes that survive in dry, salty soil. But in the Horn of Africa, rising temperatures and overgrazing by livestock have turned once-fertile grazing land into dustbowls. In northern Kenya, frequent droughts have killed off much of the vegetation camels rely on, leading to starvation and herd decline.",
+                    "Pray": "Write a prayer for the camels who are going hungry. How might you ask God to care for their food, and to help us protect the plants they need?"
+                },
+                {
+                    "day": "Tuesday",
+                    "type": "Drink",
+                    "Gratitude Prompt": "What is something you drank today that refreshed you?",
+                    "Learn": "In places like northern Mali and western Rajasthan, camels depend on ancient hand-dug wells and seasonal waterholes. But groundwater is running low from over-pumping for industrial agriculture. In some parts of Pakistan, camels must walk over 100 kilometers just to find water, which is increasingly salty or polluted from nearby development.",
+                    "Pray": "Write a prayer for clean water in the desert. How might you ask God to protect the wells, springs, and rivers that camels rely on?"
+                },
+                {
+                    "day": "Wednesday",
+                    "type": "Habitat",
+                    "Gratitude Prompt": "Where did you feel safe today?",
+                    "Learn": "Wild Bactrian camels in the Gobi Desert of China and Mongolia are critically endangered, with fewer than 1,000 remaining. Their habitat is being disrupted by illegal mining, especially for lithium and rare earth metals. In parts of the Middle East, desert highways now cut through camel corridors, causing deadly collisions and loss of traditional roaming grounds.",
+                    "Pray": "Write a prayer for the homes of camels. What would you ask God to do for the deserts, the dunes, and the places where camels roam?"
+                },
+                {
+                    "day": "Thursday",
+                    "type": "Community",
+                    "Gratitude Prompt": "Who was someone you were thankful for today?",
+                    "Learn": "Camels have walked with humans for thousands of years — especially among Tuareg, Bedouin, and Raika peoples. But as desert communities are displaced by climate change and urban migration, traditional camel herding is fading. In Rajasthan, young people are leaving behind camel care, and without intergenerational knowledge, camel populations decline and cultural ties are severed.",
+                    "Pray": "Write a prayer for the people who care for camels. How might you thank God for these communities and ask for their wisdom to be remembered?"
+                },
+                {
+                    "day": "Friday",
+                    "type": "Health",
+                    "Gratitude Prompt": "What brought you joy or strength today?",
+                    "Learn": "As desert climates become harsher, camels are more vulnerable to heat stress, parasites, and new diseases. In East Africa, outbreaks of camel pox and brucellosis have increased, partly due to crowded grazing patterns and weakened immunity from poor diets. Some camels now ingest plastic waste, mistaking it for food near human settlements, which causes internal injuries.",
+                    "Pray": "Write a prayer for the healing of camels. What would you say to God to help the sick and injured camels of the world?"
+                }
+            ]
+        },
+        {
+            "week": 2,
+            "animal": "Deer",
+            "image": "assets/images/deer.jpg",
+            "days": [
+                {
+                    "day": "Monday",
+                    "type": "Food",
+                    "Gratitude Prompt": "What was something you ate today that gave you strength?",
+                    "Learn": "Deer browse tender leaves, buds, grasses, and “mast” like acorns and beechnuts. In many eastern forests, heavy browsing makes it hard for young trees and spring wildflowers to return—reshaping the understory that countless creatures depend on. Planting and protecting native shrubs and saplings (even on church grounds) helps restore balance.",
+                    "Pray": "Write a prayer for the deer who are going hungry. How might you ask God to care for their food, and to help us protect the plants they need?"
+                },
+                {
+                    "day": "Tuesday",
+                    "type": "Drink",
+                    "Gratitude Prompt": "What is something you drank today that refreshed you?",
+                    "Learn": "Deer depend on cool streams, wetlands, and woodland pools. Summer drought shrinks these waters, and salty or polluted runoff harms ponds and creeks. Restoring wetlands and keeping rivers clean blesses every neighbor—deer, people, and parish alike.",
+                    "Pray": "Write a prayer for clean water in the woods. How might you ask God to protect the springs, streams, and wetlands that deer rely on?"
+                },
+                {
+                    "day": "Wednesday",
+                    "type": "Habitat",
+                    "Gratitude Prompt": "Where did you feel safe today?",
+                    "Learn": "Deer thrive where forests meet meadows and thickets, but roads and development cut these places apart—pushing deer to cross highways where many are struck. Wildlife crossings, connected green corridors, and native plantings (including at parishes) make movement safer.",
+                    "Pray": "Write a prayer for the homes of deer. How might you ask God to help us tend forests, fields, and the green corridors where deer move?"
+                },
+                {
+                    "day": "Thursday",
+                    "type": "Community",
+                    "Gratitude Prompt": "Who was someone you were thankful for today?",
+                    "Learn": "Deer live close to people—on farms, in suburbs, and in city parks. Indigenous nations teach respectful relationship; foresters, park rangers, and neighbors plant and protect young trees; drivers slow at dusk; parishes steward churchyards as small sanctuaries.",
+                    "Pray": "Write a prayer for the people who care for deer. How might you thank God for these communities and ask that their wisdom be remembered?"
+                },
+                {
+                    "day": "Friday",
+                    "type": "Health",
+                    "Gratitude Prompt": "What brought you joy or strength today?",
+                    "Learn": "Deer face hard winters, drought, vehicle injuries, parasites, and (in some regions) chronic wasting disease. Warmer seasons can mean more ticks for deer and people. Healthy habitats—and our careful choices—truly help.",
+                    "Pray": "Write a prayer for the healing of deer. How might you ask God to shelter fawns, mend the injured, and guide us to drive with care and tend their homes?"
+                }
+            ]
+        },
+        {
+            "week": 3,
+            "animal": "Turtle",
+            "image": "assets/images/turtle.jpg",
+            "days": [
+                {
+                    "day": "Monday",
+                    "type": "Food",
+                    "Gratitude Prompt": "What was something you ate today that gave you strength?",
+                    "Learn": "Many turtles eat aquatic plants, algae, and small creatures like insects, snails, or crabs. Sea turtles have “favorite foods”: some graze seagrass, others nibble jellyfish or sponges. Healthy ponds, rivers, and oceans grow the food turtles need.",
+                    "Pray": "Write a prayer for the food turtles need. How might you ask God to protect seagrass meadows, clean ponds, and the small creatures that feed them?"
+                },
+                {
+                    "day": "Tuesday",
+                    "type": "Drink",
+                    "Gratitude Prompt": "What is something you drank today that refreshed you?",
+                    "Learn": "Turtles depend on clean, cool water—freshwater, brackish marshes, and the open sea. Pollution, plastics, and salty runoff make water unsafe for many beings, including turtles and us.",
+                    "Pray": "Write a prayer for clean water. How might you ask God to safeguard springs, streams, wetlands, and oceans from toxins and trash?"
+                },
+                {
+                    "day": "Wednesday",
+                    "type": "Habitat",
+                    "Gratitude Prompt": "Where did you feel safe today?",
+                    "Learn": "Turtles need sunny basking spots, calm wetlands, and safe places to lay eggs. Roads, boat traffic, and bright night lights (on beaches) put adults and hatchlings at risk. Habitats can be healed with native plants, dark skies near nesting areas, and wildlife crossings. Church grounds can be small sanctuaries too.",
+                    "Pray": "Write a prayer for turtle homes. How might you ask God to help us restore shorelines, dunes, marshes, and forest edges—and to make their paths safer?"
+                },
+                {
+                    "day": "Thursday",
+                    "type": "Community",
+                    "Gratitude Prompt": "Who was someone you were thankful for today?",
+                    "Learn": "Many neighbors care for turtles: Indigenous teachers modeling respectful relationship, beach stewards dimming lights, fishers using turtle-safe gear, rehab teams helping the injured, and families cleaning up waterways. Parishes can host cleanups and learn how to help a turtle cross a road—always in the direction it’s headed.",
+                    "Pray": "Write a prayer for the people who care for turtles. How might you thank God for their wisdom, courage, and patient work?"
+                },
+                {
+                    "day": "Friday",
+                    "type": "Health",
+                    "Gratitude Prompt": "What brought you joy or strength today?",
+                    "Learn": "Turtles face boat strikes, road crossings, tangled fishing line, disease, and plastic mistaken for food. Hotter sands can harm nests and skew hatchling sex ratios. Our choices matter: slow near wetlands, pack out trash, cut loops on plastic, and keep beaches dark and flat after sunset.",
+                    "Pray": "Write a prayer for the healing of turtles. How might you ask God to protect hatchlings, mend the injured, and guide us to live gently with the waters and shores they need?"
+                }
+            ]
+        },
+        {
+            "week": 4,
+            "animal": "Bee",
+            "image": "assets/images/bee.jpg",
+            "days": [
+                {
+                    "day": "Monday",
+                    "type": "Food",
+                    "Gratitude Prompt": "What was something you ate today that gave you strength?",
+                    "Learn": "Bees sip nectar for energy and gather pollen for protein and fats. They thrive when there’s something blooming from early spring through late fall—especially native flowers like clover, bee balm, coneflower, asters, and goldenrod. Monocultures and yard chemicals leave “green deserts” with little to eat. Planting diverse, pesticide-free flowers (even in small beds by the parish steps) feeds both honey bees and native bees.",
+                    "Pray": "Write a prayer for the flowers and fields that feed bees. How might you ask God to bless gardeners, farmers, and churchyards with abundant, bee-friendly bloom?"
+                },
+                {
+                    "day": "Tuesday",
+                    "type": "Drink",
+                    "Gratitude Prompt": "What is something you drank today that refreshed you?",
+                    "Learn": "Bees need clean, shallow water to drink and to cool their hives. In hot, dry weather, a simple dish with stones or marbles gives safe landing spots. Runoff and lawn chemicals can taint puddles bees use. Creating small “bee fountains” near gardens helps the whole neighborhood.",
+                    "Pray": "Write a prayer for clean water for bees. How might you ask God to keep our streams, birdbaths, and rain barrels fresh and life-giving?"
+                },
+                {
+                    "day": "Wednesday",
+                    "type": "Habitat",
+                    "Gratitude Prompt": "Where did you feel safe today?",
+                    "Learn": "Most native bees don’t live in hives; about two-thirds nest in the ground, and others in hollow stems or old wood. Over-mulched beds, constant mowing, and “tidy” fall cleanups remove places to nest. Leaving some bare soil, standing stems through winter, and a brush pile creates sanctuary. Even a small church pollinator patch can be a home.",
+                    "Pray": "Write a prayer for bee homes. How might you ask God to help us tend meadows, hedgerows, and quiet corners where bees can nest in peace?"
+                },
+                {
+                    "day": "Thursday",
+                    "type": "Community",
+                    "Gratitude Prompt": "Who was someone you were thankful for today?",
+                    "Learn": "Many neighbors care for bees: Indigenous teachers modeling kinship with creation; gardeners planting natives; farmers growing flowering cover crops; beekeepers monitoring hives; children building bee hotels; city crews timing mowing after bloom. Parishes can join local “pollinator pathway” efforts and host seed-sharing tables.",
+                    "Pray": "Write a prayer for the people who care for bees. How might you thank God for their wisdom and ask for courage to join them?"
+                },
+                {
+                    "day": "Friday",
+                    "type": "Health",
+                    "Gratitude Prompt": "What brought you joy or strength today?",
+                    "Learn": "Bees face parasites (like varroa mites), diseases, pesticides, habitat loss, and heat waves that disrupt flowering. Healthy, chemical-free habitat and diverse forage help bees resist stress. Our choices matter: plant natives, skip neonics, mow less, and leave leaves and stems through winter.",
+                    "Pray": "Write a prayer for the healing of bees. How might you ask God to protect pollinators, steady the seasons, and guide us to be faithful stewards of their small, holy work?"
+                }
+            ]
+        },
+        {
+            "week": 5,
+            "animal": "Frog",
+            "image": "assets/images/frog.jpg",
+            "days": [
+                {
+                    "day": "Monday",
+                    "type": "Food",
+                    "Gratitude Prompt": "What was something you ate today that gave you strength?",
+                    "Learn": "Adult frogs eat insects, slugs, and snails; tadpoles graze algae and plants. Pesticide-free gardens and healthy ponds mean dinner for frogs—and fewer pests for neighbors.",
+                    "Pray": "Write a prayer for the food frogs need. How might you ask God to bless buzzing meadows and clean, green ponds?"
+                },
+                {
+                    "day": "Tuesday",
+                    "type": "Drink",
+                    "Gratitude Prompt": "What is something you drank today that refreshed you?",
+                    "Learn": "Frogs don’t sip like we do; they absorb water through their skin. That makes clean, cool water essential—and chemicals especially harmful.",
+                    "Pray": "Write a prayer for clean water for frogs. How might you ask God to keep rain, puddles, and streams fresh and life-giving?"
+                },
+                {
+                    "day": "Wednesday",
+                    "type": "Habitat",
+                    "Gratitude Prompt": "Where did you feel safe today?",
+                    "Learn": "Frogs need fish-free vernal pools, quiet wetlands, shady banks, and safe paths between them. Leaving leaf litter, planting natives, and dimming lights protect their nighttime world.",
+                    "Pray": "Write a prayer for frog homes. How might you ask God to help us tend marshes, ponds, and woodland edges where new life begins each spring?"
+                },
+                {
+                    "day": "Thursday",
+                    "type": "Community",
+                    "Gratitude Prompt": "Who was someone you were thankful for today?",
+                    "Learn": "Neighbors care for frogs: volunteers creating “amphibian crossings,” students testing stream health, gardeners keeping habitat messy-in-a-good-way, and parishes building rain gardens.",
+                    "Pray": "Write a prayer for the people who care for frogs. How might you thank God for their patient, hands-on stewardship?"
+                },
+                {
+                    "day": "Friday",
+                    "type": "Health",
+                    "Gratitude Prompt": "What brought you joy or strength today?",
+                    "Learn": "Frogs face road mortality, drought, habitat loss, and diseases like chytrid. Because their skin is so sensitive, they’re early warning signs for the health of creation. Our small choices—skipping lawn chemicals, keeping water clean—matter.",
+                    "Pray": "Write a prayer for the healing of frogs. How might you ask God to shelter tadpoles, steady the rains, and renew the wetlands they depend on?"
+                }
+            ]
+        },
+        {
+            "week": 6,
+            "animal": "Beaver",
+            "image": "assets/images/beaver.jpg",
+            "days": [
+                {
+                    "day": "Monday",
+                    "type": "Food",
+                    "Gratitude Prompt": "What was something you ate today that gave you strength?",
+                    "Learn": "Beavers eat twigs, bark, leaves, and aquatic plants—especially willow, aspen, and birch. When streambanks are healthy and tree diversity is high, there’s plenty for beavers and for other creatures too.",
+                    "Pray": "Write a prayer for the plants that feed beavers. How might you ask God to bless streamside trees and the hands that replant them?"
+                },
+                {
+                    "day": "Tuesday",
+                    "type": "Drink",
+                    "Gratitude Prompt": "What is something you drank today that refreshed you?",
+                    "Learn": "Beavers depend on clean, flowing water. Their dams slow streams, raise groundwater, and create ponds that store water in drought. Pollution and eroded banks make life hard for everything in the creek.",
+                    "Pray": "Write a prayer for living waters. How might you ask God to keep our rivers clean and our wetlands thriving?"
+                },
+                {
+                    "day": "Wednesday",
+                    "type": "Habitat",
+                    "Gratitude Prompt": "Where did you feel safe today?",
+                    "Learn": "Beavers build lodges and dams that create wetlands—nurseries for fish, birds, insects, and frogs. Coexistence tools (like tree wraps and “flow devices”) let people and beavers share the watershed.",
+                    "Pray": "Write a prayer for beaver homes. How might you ask God to help us restore riparian forests and make room for good, slow water?"
+                },
+                {
+                    "day": "Thursday",
+                    "type": "Community",
+                    "Gratitude Prompt": "Who was someone you were thankful for today?",
+                    "Learn": "Indigenous nations have long taught ways to live with beavers. Today, neighbors plant streamside trees, install beaver-friendly culverts, and invite parishes to steward churchyard creeks as small sanctuaries.",
+                    "Pray": "Write a prayer for the people who care for beavers. How might you thank God for their wisdom and steady work?"
+                },
+                {
+                    "day": "Friday",
+                    "type": "Health",
+                    "Gratitude Prompt": "What brought you joy or strength today?",
+                    "Learn": "Beavers face road danger, trapping, drought, and polluted water. Yet where they’re welcomed, wetlands cool streams, store carbon, and buffer floods—blessing the whole community.",
+                    "Pray": "Write a prayer for the healing of beavers and their waters. How might you ask God to protect families in the lodge and renew the lands they tend?"
+                }
+            ]
+        }
+    ]
+}
